@@ -32,7 +32,7 @@
     enable = true;
     networks = {
       "Das Internetz" = {
-        pskRaw = "file:${config.age.secrets.wifi-password.path}";
+        pskRaw = builtins.readFile config.age.secrets.wifi-password.path;
       };
     };
   };
