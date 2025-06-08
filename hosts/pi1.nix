@@ -20,6 +20,46 @@
 
   networking.useDHCP = true;
 
+  # WiFi configuration using encrypted password
+  age.secrets.wifi-password = {
+    file = ../secrets/wifi-password.age;
+    owner = "root";
+    group = "root";
+    mode = "0400";
+  };
+
+  networking.wireless = {
+    enable = true;
+    networks = {
+      "Das Internetz" = {
+        pskRaw = "file:${config.age.secrets.wifi-password.path}";
+      };
+    };
+  };
+
+  # Deploy key for git operations
+  age.secrets.deploy-key = {
+    file = ../secrets/deploy-key.age;
+    path = "/home/nixos/.ssh/deploy-key";
+    owner = "nixos";
+    group = "users";
+    mode = "0600";
+  };
+
+  # SSH config for git operations
+  programs.ssh.extraConfig = ''
+    Host github.com
+      HostName github.com
+      User git
+      IdentityFile /home/nixos/.ssh/deploy-key
+      IdentitiesOnly yes
+  '';
+
+  programs.ssh.knownHosts."github.com" = {
+    hostNames = [ "github.com" ];
+    publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+  };
+
   users.users.nixos = {
     isNormalUser = true;
     password = "nixos";
@@ -42,4 +82,3 @@
 
   system.stateVersion = "23.11";
 }
-
