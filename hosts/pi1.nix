@@ -29,13 +29,16 @@
   };
 
   networking.wireless = {
-    enable = true;
-    networks = {
-      "Das Internetz" = {
-        pskRaw = builtins.readFile config.age.secrets.wifi-password.path;
-      };
-    };
-  };
+  enable = true;
+  networks = {
+    "Das Internetz" = {
+      pskRaw = builtins.replaceStrings ["\n"] [""] (builtins.readFile config.age.secrets.wifi-password.path);
+      # Force a specific frequency/channel
+      # frequency = 2412;
+       frequency = 5180;
+     };
+   };
+ };
 
   # Deploy key for git operations
   age.secrets.deploy-key = {
