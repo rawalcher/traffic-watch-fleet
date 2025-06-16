@@ -46,7 +46,7 @@
     mode = "0600";
   };
 
-   Deploy key for rust traffic watch repo
+  # Deploy key for rust traffic watch repo
   age.secrets.deploy-key-traffic = {
     file = ../secrets/deploy-key-traffic.age;
     path = "/home/nixos/.ssh/deploy-key-traffic";
