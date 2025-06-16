@@ -76,6 +76,8 @@
   };
   users.mutableUsers = false;
 
+  services.getty.autologinUser = "nixos";
+
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
