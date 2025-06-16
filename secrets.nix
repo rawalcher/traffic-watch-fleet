@@ -7,5 +7,6 @@ let
 in
 {
   "secrets/deploy-key.age".publicKeys = users ++ systems;
+  "secrets/deploy-key-traffic.age".publicKeys = users ++ systems;
   "secrets/wifi-password.age".publicKeys = users ++ systems;
 }
