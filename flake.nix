@@ -14,10 +14,15 @@
         ./modules/common.nix
         ./modules/traffic-watch.nix
       ];
+
+      pkgsFor = system: import nixpkgs {
+        inherit system;
+        config.allowUnsupportedSystem = true;
+        config.allowUnfree = true;
+      };
     in
     {
       nixosConfigurations = {
-        
         # Intel NUC configuration
         nuc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";

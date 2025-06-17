@@ -20,11 +20,6 @@
     options = [ "noatime" ];
   };
 
-  hardware.raspberry-pi."4" = {
-    fkms-3d.enable = true;
-    audio.enable = true;
-  };
-
   hardware.enableRedistributableFirmware = true;
 
   nixpkgs.config.allowUnfree = true;
