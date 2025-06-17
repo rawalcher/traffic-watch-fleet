@@ -43,16 +43,16 @@
 
   # SSH configuration
   programs.ssh.extraConfig = ''
-    Host github-rust
-      HostName github.com
-      User git
-      IdentityFile /home/nixos/.ssh/github-deploy-key
-      IdentitiesOnly yes
-
     Host github-nixos
       HostName github.com
       User git
-      IdentityFile /home/nixos/.ssh/traffic-watch-deploy-key
+      IdentityFile /home/nixos/.ssh/deploy-key
+      IdentitiesOnly yes
+
+    Host github-rust
+      HostName github.com
+      User git
+      IdentityFile /home/nixos/.ssh/deploy-key-traffic
       IdentitiesOnly yes
   '';
 
