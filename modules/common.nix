@@ -41,14 +41,21 @@
     mode = "0600";
   };
 
-  # SSH configuration for git
+  # SSH configuration
   programs.ssh.extraConfig = ''
-    Host github.com
+    Host github-nixos
       HostName github.com
       User git
-      IdentityFile /home/nixos/.ssh/deploy-key
+      IdentityFile /home/nixos/.ssh/github-deploy-key
+      IdentitiesOnly yes
+
+    Host github-rust
+      HostName github.com
+      User git
+      IdentityFile /home/nixos/.ssh/traffic-watch-deploy-key
       IdentitiesOnly yes
   '';
+
 
   programs.ssh.knownHosts."github.com" = {
     hostNames = [ "github.com" ];
