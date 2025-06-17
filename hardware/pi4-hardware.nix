@@ -26,4 +26,6 @@
   };
 
   hardware.enableRedistributableFirmware = true;
+
+  nixpkgs.config.allowUnfree = true;
 }

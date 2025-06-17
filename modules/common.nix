@@ -19,24 +19,8 @@
     };
   };
 
-  networking.useDHCP = true;
-
-  # WiFi configuration using encrypted password
-  age.secrets.wifi-password = {
-    file = ../secrets/wifi-password.age;
-    owner = "root";
-    group = "root";
-    mode = "0400";
-  };
-
-  networking.wireless = {
-    enable = true;
-    networks = {
-      "Das Internetz" = {
-        psk = builtins.replaceStrings ["\n"] [""] (builtins.readFile config.age.secrets.wifi-password.path);
-      };
-    };
-  };
+  networking.useDHCP = false;
+  networking.networkmanager.enable = true;
 
   services.openssh.enable = true;
 
@@ -75,7 +59,7 @@
   users.users.nixos = {
     isNormalUser = true;
     password = "nixos";
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager"];
   };
   users.mutableUsers = false;
 

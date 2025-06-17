@@ -23,16 +23,22 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/your-root-uuid-here";
+    device = "/dev/disk/by-uuid/ca462687-63f5-4126-9991-00b6405a819f";
     fsType = "ext4";
     options = [ "noatime" ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/your-boot-uuid-here";
+    device = "/dev/disk/by-uuid/4A92-74A3";
     fsType = "vfat";
   };
 
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/b67a5c5e-f64d-4705-8457-68119ccaadef"; }
+  ];
+
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.enableAllFirmware = true;
+
+  nixpkgs.config.allowUnfree = true;
 }
