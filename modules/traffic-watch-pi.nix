@@ -13,6 +13,7 @@
       ultralytics
       requests pyyaml tqdm psutil
       scipy scikit-learn scikit-image
+      gitpython
     ]))
 
     # Build tools
