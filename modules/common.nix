@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Nix configuration
   nix = {
     package = pkgs.nix;
     extraOptions = ''
@@ -19,15 +18,22 @@
     };
   };
 
-  networking.useDHCP = false;
-  networking.networkmanager.enable = true;
+  networking = {
+    useDHCP = false;
+    networkmanager.enable = true;
+  };
 
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PubkeyAuthentication = true;
+    };
+  };
 
-  # Deploy keys for git operations
-  age.secrets.deploy-key = {
-    file = ../secrets/deploy-key.age;
-    path = "/home/nixos/.ssh/deploy-key";
+  age.secrets.deploy-key-nixos = {
+    file = ../secrets/deploy-key-nixos.age;
+    path = "/home/nixos/.ssh/deploy-key-nixos";
     owner = "nixos";
     group = "users";
     mode = "0600";
@@ -41,36 +47,32 @@
     mode = "0600";
   };
 
-  # SSH configuration
   programs.ssh.extraConfig = ''
     Host github-nixos
       HostName github.com
       User git
-      IdentityFile /home/nixos/.ssh/deploy-key
+      IdentityFile /home/nixos/.ssh/deploy-key-nixos
       IdentitiesOnly yes
 
-    Host github-rust
+    Host github-traffic
       HostName github.com
       User git
       IdentityFile /home/nixos/.ssh/deploy-key-traffic
       IdentitiesOnly yes
   '';
 
-
   programs.ssh.knownHosts."github.com" = {
     hostNames = [ "github.com" ];
     publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
   };
 
-  # User configuration
   users.users.nixos = {
     isNormalUser = true;
     password = "nixos";
-    extraGroups = [ "wheel" "networkmanager"];
+    extraGroups = [ "wheel" "networkmanager" ];
   };
   users.mutableUsers = false;
 
-  # Auto-login
   services.getty.autologinUser = "nixos";
 
   environment.systemPackages = with pkgs; [

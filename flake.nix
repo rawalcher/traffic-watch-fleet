@@ -12,7 +12,15 @@
       commonModules = [
         agenix.nixosModules.default
         ./modules/common.nix
-        ./modules/traffic-watch.nix
+        ./modules/firewall.nix
+      ];
+
+      piModules = commonModules ++ [
+        ./modules/traffic-watch-pi.nix
+      ];
+
+      controllerModules = commonModules ++ [
+        ./modules/traffic-watch-controller.nix
       ];
 
       pkgsFor = system: import nixpkgs {
@@ -23,10 +31,9 @@
     in
     {
       nixosConfigurations = {
-        # Intel NUC configuration
         nuc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          modules = commonModules ++ [
+          modules = controllerModules ++ [
             ./hardware/nuc-hardware.nix
             ./hosts/nuc.nix
           ];
@@ -35,7 +42,7 @@
         # Raspberry Pi 4 1GB variant
         pi4-1gb = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          modules = commonModules ++ [
+          modules = piModules ++ [
             ./hardware/pi4-hardware.nix
             ./hosts/pi4-1gb.nix
           ];
@@ -44,7 +51,7 @@
         # Raspberry Pi 4 2GB variant
         pi4-2gb = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          modules = commonModules ++ [
+          modules = piModules ++ [
             ./hardware/pi4-hardware.nix
             ./hosts/pi4-2gb.nix
           ];
@@ -53,7 +60,7 @@
         # Raspberry Pi 4 8GB variant
         pi4-8gb = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          modules = commonModules ++ [
+          modules = piModules ++ [
             ./hardware/pi4-hardware.nix
             ./hosts/pi4-8gb.nix
           ];

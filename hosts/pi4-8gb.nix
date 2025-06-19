@@ -2,7 +2,6 @@
 
 {
   networking.hostName = "traffic-pi4-8gb";
-
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   services.journald.extraConfig = ''
