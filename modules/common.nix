@@ -70,13 +70,14 @@
     isNormalUser = true;
     password = "nixos";
     extraGroups = [ "wheel" "networkmanager" ];
+    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/2r/UUYwIhL/LCNzNNCuK0U7eWSreXe2P7j4WXTFsQ rawalcher@desktop" ];
   };
   users.mutableUsers = false;
 
   services.getty.autologinUser = "nixos";
 
   environment.systemPackages = with pkgs; [
-    neofetch git nano wget curl age htop tree tmux
+    fastfetch git nano wget curl age htop tree tmux
   ];
 
   system.stateVersion = "23.11";
