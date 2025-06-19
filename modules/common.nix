@@ -25,10 +25,10 @@
 
   services.openssh = {
     enable = true;
-    settings = {
-      PasswordAuthentication = false;
-      PubkeyAuthentication = true;
-    };
+    #settings = {
+      #PasswordAuthentication = false;
+      #PubkeyAuthentication = true;
+    #};
   };
 
   age.secrets.deploy-key-nixos = {
@@ -70,7 +70,7 @@
     isNormalUser = true;
     password = "nixos";
     extraGroups = [ "wheel" "networkmanager" ];
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/2r/UUYwIhL/LCNzNNCuK0U7eWSreXe2P7j4WXTFsQ rawalcher@desktop" ];
+    #openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG/2r/UUYwIhL/LCNzNNCuK0U7eWSreXe2P7j4WXTFsQ rawalcher@desktop" ];
   };
   users.mutableUsers = false;
 
