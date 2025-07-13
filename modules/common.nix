@@ -79,6 +79,9 @@
   environment.systemPackages = with pkgs; [
     fastfetch git nano wget curl age htop tree tmux
   ];
+  environment.variables = {
+      RUST_LOG = "info";
+    };
 
   system.stateVersion = "23.11";
 }
