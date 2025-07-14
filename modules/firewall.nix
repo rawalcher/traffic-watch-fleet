@@ -5,9 +5,9 @@
     enable = true;
     allowedTCPPorts = [
       22    # SSH
-      8080  # Pi sender port
-      9090  # Controller port
-      9092  # Jetson receiver port (if jetson would be on NixOS
+      9090  # Controller control port
+      9091  # Controller data port
+      9092  # Jetson receiver port
     ];
     #trustedInterfaces = [ "lo" ];
     logRefusedConnections = false;
